@@ -1,0 +1,25 @@
+CUDA runtime problem:
+
+THCudaCheck FAIL file=/pytorch/aten/src/THC/THCGeneral.cpp line=47 error=999 : unknown error
+Fail to intialize SPF_object
+Traceback (most recent call last):
+  File "/home/xi/cvo_slam_2_superpoint/build/demo_superpoint.py", line 151, in __init__
+    self.net = self.net.cuda()
+  File "/usr/local/lib/python3.5/dist-packages/torch/nn/modules/module.py", line 307, in cuda
+    return self._apply(lambda t: t.cuda(device))
+  File "/usr/local/lib/python3.5/dist-packages/torch/nn/modules/module.py", line 203, in _apply
+    module._apply(fn)
+  File "/usr/local/lib/python3.5/dist-packages/torch/nn/modules/module.py", line 225, in _apply
+    param_applied = fn(param)
+  File "/usr/local/lib/python3.5/dist-packages/torch/nn/modules/module.py", line 307, in <lambda>
+    return self._apply(lambda t: t.cuda(device))
+  File "/usr/local/lib/python3.5/dist-packages/torch/cuda/__init__.py", line 153, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: cuda runtime error (999) : unknown error at /pytorch/aten/src/THC/THCGeneral.cpp:47
+
+Solution:
+
+sudo rmmod nvidia_uvm
+sudo modprobe nvidia_uvm
+
+see here(https://discuss.pytorch.org/t/cuda-runtime-error-999/69658/19) for detail
