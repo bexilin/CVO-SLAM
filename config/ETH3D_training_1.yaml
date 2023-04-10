@@ -1,0 +1,46 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters. Adjust them!
+#--------------------------------------------------------------------------------------------
+
+# this is for ETH3D training sequence except sfm_bench sfm_garden sfm_house_loop sfm_lab_room_1 sfm_lab_room_2 sofa_1 sofa_2 sofa_3 sofa_4 sofa_shake
+
+# Camera calibration parameters (OpenCV) 
+Camera.fx: 726.28741455078
+Camera.fy: 726.28741455078
+Camera.cx: 354.6496887207
+Camera.cy: 186.46566772461
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# IR projector baseline times fx (aprox.)
+Camera.bf: 40.0
+
+# Deptmap values factor 
+DepthMapFactor: 5000.0
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 5000
+
+# ORB Extractor: Scale factor between levels in the scale pyramid 	
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid	
+ORBextractor.nLevels: 8
+
+# ORB Extractor: Fast threshold
+# Image is divided in a grid. At each cell FAST are extracted imposing a minimum response.
+# Firstly we impose iniThFAST. If no corners are detected we impose a lower value minThFAST
+# You can lower these values if your images have low contrast			
+ORBextractor.iniThFAST: 20
+ORBextractor.minThFAST: 7
+
+# ORB Extractor: minimum distance threshold among keypoints 
+ORBextractor.keypoint_distance: 0
+
