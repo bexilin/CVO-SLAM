@@ -107,11 +107,10 @@ target_link_libraries(cvo_slam
 )
 
 #add executable
-add_executable(run_TUM src/run_TUM.cpp)
-add_executable(run_TartanAir src/run_TartanAir.cpp)
+add_executable(run_SLAM src/run_SLAM.cpp)
 
 #target link libraries
-target_link_libraries(run_TUM 
+target_link_libraries(run_SLAM 
 cvo_slam 
 ${EIGEN3_LIBS} 
 ${G2O_CORE_LIBRARY} 
@@ -126,17 +125,5 @@ tbb
 # ${PYTHON_LIBRARIES}
 )
 
-target_link_libraries(run_TartanAir 
-cvo_slam 
-${EIGEN3_LIBS} 
-${G2O_CORE_LIBRARY} 
-${G2O_SOLVER_DENSE} 
-${G2O_SOLVER_EIGEN} 
-${G2O_TYPES_SLAM3D} 
-${Boost_GENERAL} 
-${Boost_LIBRARIES} 
-${OpenCV_LIBS} 
-tbb 
-)
 
 set_target_properties(cvo_slam PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})

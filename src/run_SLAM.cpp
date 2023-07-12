@@ -1,12 +1,11 @@
 #include "keyframe_tracker.h"
-#include <opencv2/core/core.hpp>
 #include <vector>
 #include <string>
-#include <filesystem>
 
 using namespace std;
 
-void load_file_name(string folder, vector<string> &filenames);
+void load_file_name(string assoc_pth, vector<string> &vstrRGBTimestamp, \
+                    vector<string> &vstrRGBPth, vector<string> &vstrDepPth);
 
 void load_img(string& RGB_pth, string& dep_pth, string& timestamp, cvo_slam::Image_Ptr& current);
 
@@ -22,12 +21,13 @@ int main(int argc, char** argv){
     // int dataset_seq;
     cvo_slam::cfg cfg_;
     
-    if(argc!=5){
+    if(argc!=6){
         std::cout << "Please the following terms:\n"
                   << "1. CVO SLAM configuration file\n"
                   << "2. Visual vocabulary file\n"
                   << "3. Calibration and ORB feature configuration file\n"
-                  << "4. Directory of a TartanAir sequence\n";
+                  << "4. Directory of a TUM sequence\n"
+                  << "5. association file name\n";
         exit (EXIT_FAILURE);
     } 
     else{
@@ -37,11 +37,16 @@ int main(int argc, char** argv){
         orb_vocabulary = argv[2];
         calib_orb_tracking_cfg = argv[3];
         folder = argv[4];
+        association = argv[5];
     }
 
-    vector<string> filenames;
-    load_file_name(folder+"image_left/",filenames);
-    int num_img = filenames.size();
+    string assoc_pth = folder + association;
+
+    vector<string> vstrRGBTimestamp;
+    vector<string> vstrRGBPth;
+    vector<string> vstrDepPth;
+    load_file_name(assoc_pth,vstrRGBTimestamp,vstrRGBPth,vstrDepPth);
+    int num_img = vstrRGBTimestamp.size();
 
     cvo_slam::KeyframeTracker keyframe_tracker(orb_vocabulary, calib_orb_tracking_cfg, folder);
 
@@ -66,10 +71,10 @@ int main(int argc, char** argv){
 
         std::cout << "Current frame number: " << i+1 << std::endl << std::endl;
 
-        string RGB_pth = folder + "image_left/" + filenames[i] + ".png";
-        string dep_pth = folder + "depth_left_image/" + filenames[i] + "_depth.png";
+        string RGB_pth = folder + vstrRGBPth[i];
+        string dep_pth = folder + vstrDepPth[i];
         
-        load_img(RGB_pth, dep_pth, filenames[i], current);
+        load_img(RGB_pth, dep_pth, vstrRGBTimestamp[i], current);
 
         if(i == num_img-1) keyframe_tracker.forceKeyframe();
 
@@ -93,14 +98,36 @@ int main(int argc, char** argv){
     }
 }
 
-void load_file_name(string folder, vector<string> &filenames){
-    std::filesystem::path dir = folder;
-    for(const auto& file: std::filesystem::directory_iterator(dir)){
-        if(file.is_regular_file() && file.path().extension() == ".png"){
-            filenames.push_back(file.path().stem().string());
+void load_file_name(string assoc_pth, vector<string> &vstrRGBTimestamp, \
+                    vector<string> &vstrRGBPth, vector<string> &vstrDepPth){
+    std::ifstream fAssociation;
+    fAssociation.open(assoc_pth.c_str());
+    while(!fAssociation.eof())
+    {
+        string s;
+        getline(fAssociation,s);
+        if(!s.empty())
+        {
+            stringstream ss;
+            ss << s;
+            // double RGB;
+            // ss >> RGB;
+            // ros::Time RGBTime;
+            // RGBTime.fromSec(RGB);
+            string RGBTime;
+            ss >> RGBTime;
+            vstrRGBTimestamp.push_back(RGBTime);
+            string RGB_pth;
+            ss >> RGB_pth;
+            vstrRGBPth.push_back(RGB_pth);
+            string dep;
+            ss >> dep;
+            string depPth;
+            ss >> depPth;
+            vstrDepPth.push_back(depPth);
         }
     }
-    std::sort(filenames.begin(),filenames.end());
+    fAssociation.close();
 }
 
 
@@ -184,6 +211,10 @@ void configure(cvo_slam::cfg& cfg_, string& cvo_slam_cfg){
             else if(name.compare("RobustKernelDelta") == 0){
                 variable >> cfg_.RobustKernelDelta ;
                 std::cout << "RobustKernelDelta: " << cfg_.RobustKernelDelta << std::endl;
+            }
+            else if(name.compare("LC_MinScoreRatio") == 0){
+                variable >> cfg_.LC_MinScoreRatio ;
+                std::cout << "LC_MinScoreRatio: " << cfg_.LC_MinScoreRatio << std::endl;
             }
             else if(name.compare("LC_MinScoreRatio") == 0){
                 variable >> cfg_.LC_MinScoreRatio ;

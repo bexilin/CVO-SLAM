@@ -1,1 +1,0 @@
-./run_slam ../config/config.txt ../thirdparty/ORB_SLAM2/vocabulary/ORBvoc.txt ../config/TUM1.yaml ~/TUM/fr1_desk_test/ assoc.txt
