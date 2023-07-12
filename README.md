@@ -1,6 +1,6 @@
 # CVO SLAM
 
-CVO SLAM is a robust RGB-D SLAM system that works reliably in challenging Scenarios such as rapid camera motion, texture-less environments, and overexposed images. Its performance has been evaluated on sequences from [TUM RGB-D dataset](https://vision.in.tum.de/data/datasets/rgbd-dataset/download) and [ETH3D RGB-D dataset](https://www.eth3d.net/slam_datasets), showing generally comparable performance with state-of-the-art systems.
+CVO SLAM is a robust RGB-D SLAM system that works reliably in challenging scenarios such as rapid camera motion, texture-less environments, and overexposed images. Its performance has been evaluated on sequences from [TUM RGB-D dataset](https://vision.in.tum.de/data/datasets/rgbd-dataset/download) and [ETH3D RGB-D dataset](https://www.eth3d.net/slam_datasets), showing generally comparable performance to state-of-the-art systems.
 
 <p align="center">
 <img width="320" height="240" src="TUM_CDF.png">  
