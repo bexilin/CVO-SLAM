@@ -7,6 +7,10 @@ CVO SLAM is a robust RGB-D SLAM system that works reliably in challenging scenar
 <img width="320" height="240" src="ETH3D_CDF.png">
 </p>
 
+<p align="center">
+<img width="640" height="800" src="ETH3D_sequences_plot.png">  
+</p>
+
 # 1. License
 CVO SLAM is released under GNU GLPv3 license. It uses and/or modifies code from [CVO](https://github.com/MaaniGhaffari/cvo-rgbd), [DVO SLAM](https://github.com/tum-vision/dvo_slam) and [ORB-SLAM2](https://github.com/raulmur/ORB_SLAM2), which are all under GNU GLPv3 license. Besides, For the details about code changes we made, please refer to code_dependencies.md and corresponding code files. 
 
