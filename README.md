@@ -11,7 +11,7 @@ CVO SLAM is a robust RGB-D SLAM system that works reliably in challenging scenar
 <img width="800" height="960" src="ETH3D_sequences_plot.png">  
 </p>
 
-Please cite as:
+If you find this repository useful, please cite our paper
 ```
 @ARTICLE{10239392,
   author={Lin, Xi and Huang, Yewei and Sun, Dingyi and Lin, Tzu-Yuan and Englot, Brendan and Eustice, Ryan M. and Ghaffari, Maani},
